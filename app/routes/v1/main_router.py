@@ -5,7 +5,6 @@ from app.routes.v1.player import oauth_router, player_router
 from app.routes.v1.whitelist import whitelist_ban_router, whitelist_router
 from app.routes.v1.ban import ban_router
 
-
 v1_router = APIRouter(
     prefix="/v1", tags=["v1"], responses={status.HTTP_401_UNAUTHORIZED: {"description": "Unauthorized"}}
 )

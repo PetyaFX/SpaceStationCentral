@@ -1,7 +1,8 @@
 import logging
+from typing import Any
+
 import aiohttp
 from fastapi import APIRouter, Depends, status
-
 from discord import Webhook
 
 from app.core.config import get_config
@@ -18,7 +19,7 @@ ban_router = APIRouter(prefix="/bans", tags=["Ban"])
     status_code=status.HTTP_201_CREATED,
     dependencies=[Depends(verify_bearer)],
 )
-async def ban_created(new_ban: NewBan):
+async def ban_created(new_ban: NewBan) -> dict[str, Any]:
     #logger.info("Ban created: %s", new_ban.model_dump_json())
 
     config = get_config()
