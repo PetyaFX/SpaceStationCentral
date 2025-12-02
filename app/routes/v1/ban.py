@@ -1,13 +1,15 @@
 import logging
-import aiohttp
-from fastapi import APIRouter, Depends, status
+from typing import Any
 
+import aiohttp
 from discord import Webhook
+from fastapi import APIRouter, Depends, status
 
 from app.core.config import get_config
 from app.deps import verify_bearer
 from app.helpers.ban import get_ban_embed
 from app.schemas.v1.ban import NewBan
+
 
 logger = logging.getLogger(__name__)
 
@@ -18,7 +20,7 @@ ban_router = APIRouter(prefix="/bans", tags=["Ban"])
     status_code=status.HTTP_201_CREATED,
     dependencies=[Depends(verify_bearer)],
 )
-async def ban_created(new_ban: NewBan):
+async def ban_created(new_ban: NewBan) -> dict[str, Any]:
     #logger.info("Ban created: %s", new_ban.model_dump_json())
 
     config = get_config()
@@ -34,7 +36,7 @@ async def ban_created(new_ban: NewBan):
                 )
                 await webhook.send(embed=embed)
 
-        except Exception as e:
+        except aiohttp.ClientError as e:
             logger.error("Failed to send ban notification to public webhook: %s", e)
 
     return {"status": "ok"}
