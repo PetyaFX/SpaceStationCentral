@@ -34,7 +34,7 @@ async def ban_created(new_ban: NewBan):
                 )
                 await webhook.send(embed=embed)
 
-        except Exception as e:
+        except aiohttp.ClientError as e:
             logger.error("Failed to send ban notification to public webhook: %s", e)
 
     return {"status": "ok"}
