@@ -81,6 +81,7 @@ class GeneralConfig(ConfigSection):
     description: str = Field(default="API для объединения множества серверов SS13 и SS14 в одну систему.")
     favicon_path: str = Field(default="app/assets/favicon.png")
     discord_webhook: str | None = Field(default=None)
+    discord_public_webhook: str | None = Field(default=None)
 
     @override
     @classmethod
@@ -100,7 +101,7 @@ class GeneralConfig(ConfigSection):
             file_secret_settings,
         )
 
-    @field_validator("discord_webhook")
+    @field_validator("discord_webhook", "discord_public_webhook")
     @classmethod
     def validate_webhook(cls, value: str) -> str:
         if value and not value.startswith(("http://", "https://")):
