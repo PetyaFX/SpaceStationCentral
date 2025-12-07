@@ -108,6 +108,7 @@ class GeneralConfig(ConfigSection):
             raise ValueError("Discord webhook URL should start with http:// or https://")
         return value
 
+
 class DatabaseConfig(ConfigSection):
     """Database connection configuration."""
 

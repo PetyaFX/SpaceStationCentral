@@ -31,4 +31,3 @@ project_ver = "0.1.0"
 favicon_path = "app/assets/favicon.png"
 discord_webhook = "https://discord.com/api/webhooks/12345678/12345678"
 discord_public_webhook = "https://discord.com/api/webhooks/12345678/12345678"
-

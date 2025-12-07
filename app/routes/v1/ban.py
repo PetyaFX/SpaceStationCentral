@@ -21,7 +21,6 @@ ban_router = APIRouter(prefix="/bans", tags=["Ban"])
     dependencies=[Depends(verify_bearer)],
 )
 async def ban_created(new_ban: NewBan) -> dict[str, Any]:
-    #logger.info("Ban created: %s", new_ban.model_dump_json())
 
     config = get_config()
 
