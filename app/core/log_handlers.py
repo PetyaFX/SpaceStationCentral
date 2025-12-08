@@ -62,7 +62,7 @@ class DiscordWebhookHandler(logging.Handler):
             f"- {record.funcName}:{record.lineno}"
         )
 
-    def discord_handler_factory() -> logging.Handler:
+    def discord_handler_factory(self) -> logging.Handler:
         """
         Factory function for creating DiscordWebhookHandler from config.
 
