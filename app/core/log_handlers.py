@@ -62,6 +62,18 @@ class DiscordWebhookHandler(logging.Handler):
             f"- {record.funcName}:{record.lineno}"
         )
 
+    def discord_handler_factory(self) -> logging.Handler:
+        """
+        Factory function for creating DiscordWebhookHandler from config.
+
+        Returns NullHandler if webhook_url is not configured.
+        """
+        try:
+            return DiscordWebhookHandler.from_config()
+        except ValueError:
+            # Return a NullHandler if webhook is not configured
+            return logging.NullHandler()
+
     @override
     def emit(self, record: logging.LogRecord) -> None:
         """Send the log record to the Discord webhook as an embed or plain text if too large."""
