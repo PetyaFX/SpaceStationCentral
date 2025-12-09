@@ -40,15 +40,14 @@ def build_description_parts(ban: NewBan, bantype: str, expiration_time: datetime
     # duration
     if bantype in ("PERMABAN", "JOB_PERMABAN"):
         parts.append("**Длительность:** Навсегда")
+    elif ban.duration_hours is not None and ban.duration_hours > 0:
+        expiration_str = (
+            expiration_time.strftime("%Y-%m-%d %H:%M:%S")
+            if expiration_time else "unknown"
+        )
+        parts.append(f"**Длительность:** {ban.duration_hours} ч. до {expiration_str}")
     else:
-        if ban.duration_hours is not None and ban.duration_hours > 0:
-            expiration_str = (
-                expiration_time.strftime("%Y-%m-%d %H:%M:%S")
-                if expiration_time else "unknown"
-            )
-            parts.append(f"**Длительность:** {ban.duration_hours} ч. до {expiration_str}")
-        else:
-            parts.append("**Длительность:** Навсегда")
+        parts.append("**Длительность:** Навсегда")
 
     # reason
     if ban.reason:
